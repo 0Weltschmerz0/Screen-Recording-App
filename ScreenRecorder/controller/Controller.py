@@ -27,17 +27,16 @@ class Controller:
         self.root.mainloop()
 
     def start_recording(self):
+
         self.video_data = filedialog.asksaveasfilename(title="Select file", defaultextension="*.mp4",filetypes = (("MP4","*.mp4"),("AVI","*.avi")))
         name, extension = ntpath.splitext(self.video_data)
         self.video_model.name = name
         self.video_model.format = extension
         self.video_model.path = self.video_data
-
         if self.video_model.format == ".mp4":
             codec = cv2.VideoWriter_fourcc(*'X264')
         else:
             codec = cv2.VideoWriter_fourcc(*'XVID')
-
         self.output = cv2.VideoWriter(self.video_model.name + self.video_model.format, codec,  60.0, (1920, 1080))
         self.recording = True
 
@@ -48,7 +47,7 @@ class Controller:
         self.output.release()
 
     def toInt(self):
-        self.value = self.timer.get()
+        self.value = self.view.timer.get()
         try:
             return int(self.value)
         except ValueError:
